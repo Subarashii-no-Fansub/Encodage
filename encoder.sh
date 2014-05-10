@@ -9,10 +9,27 @@ file="$3_first.mkv"
 file_end="$3.mkv"
 
 chmod 644 "$1"
-mkvmerge -o "$file"  --default-track 0:yes --forced-track 0:no --language 1:jpn --default-track 1:yes --forced-track 1:no --audio-tracks 1 --video-tracks 0 --no-subtitles --no-track-tags --no-global-tags "$1" --forced-track 0:no --subtitle-tracks 0 --no-video --no-audio --no-track-tags --no-global-tags --no-chapters "$2"
+
+mkvmerge -i "$1"
+echo -n "Numéro de la vidéo : "
+read var_idvid
+echo -n "Numéro du son : "
+read var_idson
+echo -n "Numéro des sous-titres : "
+read var_idss
+
+mkvmerge -o "$file"  --default-track $var_idvid:yes --forced-track $var_idvid:no --language $var_idson:jpn --default-track $var_idson:yes --forced-track $var_idson:no --audio-tracks $var_idson --video-tracks $var_idvid --no-subtitles --no-track-tags --no-global-tags "$1" --forced-track $var_idvid:no --subtitle-tracks $var_idvid --no-video --no-audio --no-track-tags --no-global-tags --no-chapters "$2"
+
+mkvmerge -i "$file"
+echo -n "Numéro de la vidéo : "
+read var_idvid
+echo -n "Numéro du son : "
+read var_idson
+echo -n "Numéro des sous-titres : "
+read var_idss
 
 chmod 644 "$file"
-mkvmerge -o "$file_end" --default-track 0:yes --forced-track 0:no --language 1:jpn --default-track 1:yes --forced-track 1:no --language 2:fre --track-name 2:"Subarashii no Fansub" --default-track 2:yes --forced-track 2:no --audio-tracks 1 --video-tracks 0 --subtitle-tracks 2  --no-track-tags --no-global-tags "$file"
+mkvmerge -o "$file_end" --default-track $var_idvid:yes --forced-track $var_idvid:no --language $var_idson:jpn --default-track $var_idson:yes --forced-track $var_idson:no --language $var_idss:fre --track-name $var_idss:"Subarashii no Fansub" --default-track $var_idss:yes --forced-track $var_idss:no --audio-tracks $var_idson --video-tracks $var_idvid --subtitle-tracks $var_idss  --no-track-tags --no-global-tags "$file"
 chmod 644 "$file_end"
 rm "$file"
 
