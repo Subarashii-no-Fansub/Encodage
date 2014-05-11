@@ -7,6 +7,7 @@ set -e
 
 file="$3_first.mkv"
 file_end="$3.mkv"
+crc_calc = "crc32" #change this please :-)
 
 chmod 644 "$1"
 
@@ -27,4 +28,4 @@ mkvmerge -o "$file_end" --default-track $var_idvid:yes --forced-track $var_idvid
 chmod 644 "$file_end"
 rm "$file"
 
-echo "Le CRC de ce fichier est : " && crc32 "$file_end"
+echo "Le CRC de ce fichier est : " && $crc_calc "$file_end"
