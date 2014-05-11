@@ -7,7 +7,7 @@ set -e
 
 file="$3_first.mkv"
 file_end="$3.mkv"
-crc_calc = "crc32" #change this please :-)
+crc_calc="crc32" #change this please :-)
 
 chmod 644 "$1"
 
