@@ -28,9 +28,8 @@ mkvmerge -o "$file_end" --default-track $var_idvid:yes --forced-track $var_idvid
 chmod 644 "$file_end"
 rm "$file"
 
-
-var_crc=$($crc_calc "$file_end")
-echo "Le CRC de ce fichier est : $var_crc"
+$crc_calc "$file_end"
+read -p "Le CRC de ce fichier est : " var_crc
 read -p "Qualité de la vidéo : " var_qual
 mv "$file_end" "[SnF] $3 VOSTFR [$var_qual] [$var_crc].mkv"
 echo "FINI !"
