@@ -42,7 +42,7 @@ read -p "Créer un .torrent ? " -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    transmission-create -t udp://tracker.openbittorrent.com:80/announce -t udp://tracker.publicbt.com:80/announce -t udp://tracker.ccc.de:80/announce -t udp://tracker.istole.it:80/announce "$file"
+    transmission-create -t http://open.nyaatorrents.info:6544/announce -t udp://tracker.openbittorrent.com:80/announce -t udp://tracker.publicbt.com:80/announce -t udp://tracker.ccc.de:80/announce -t udp://tracker.istole.it:80/announce "$file"
     chmod 644 "$file.torrent"
 fi
 
