@@ -20,7 +20,7 @@ read -p "Numéro de la vidéo : " var_idvid
 read -p "Numéro du son : " var_idson
 read -p "Numéro des sous-titres : " var_idss
 
-mkvmerge -o "$file"  --default-track $var_idvid:yes --forced-track $var_idvid:no --language $var_idson:jpn --default-track $var_idson:yes --forced-track $var_idson:no --audio-tracks $var_idson --video-tracks $var_idvid --no-subtitles --no-track-tags --no-global-tags "$1" --forced-track $var_idvid:no --subtitle-tracks $var_idvid --no-video --no-audio --no-track-tags --no-global-tags --no-chapters "$2"
+mkvmerge -o "$file" --default-track $var_idvid:yes --forced-track $var_idvid:no --language $var_idson:jpn --default-track $var_idson:yes --forced-track $var_idson:no --audio-tracks $var_idson --video-tracks $var_idvid --no-subtitles --no-track-tags --no-global-tags "$1" --no-video --no-audio --no-track-tags --no-global-tags --no-chapters "$2"
 
 mkvmerge -i "$file"
 read -p "Numéro de la vidéo : " var_idvid
