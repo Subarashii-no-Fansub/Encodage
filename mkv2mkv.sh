@@ -35,7 +35,7 @@ rm "$file"
 $crc_calc "$file_end"
 read -p "Le CRC de ce fichier est : " var_crc
 read -p "Qualité de la vidéo : " var_qual
-file="[$fansub_name_C] $3 VOSTFR [$var_qual] [$var_crc].mkv"
+file="[$fansub_name_C] $3 VOSTFR [$var_qual][$var_crc].mkv"
 mv "$file_end" "$file"
 
 read -p "Créer un .torrent ? " -n 1 -r
