@@ -38,9 +38,9 @@ read -p "Qualité de la vidéo : " var_qual
 file="[$fansub_name_C] $3 VOSTFR [$var_qual][$var_crc].mkv"
 mv "$file_end" "$file"
 
-read -p "Créer un .torrent ? " -n 1 -r
+read -p "Créer un .torrent ? [O/n] " -n 1 -r
 echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]
+if [[ $REPLY =~ ^[Oo]$ ]]
 then
     transmission-create -t http://open.nyaatorrents.info:6544/announce "$file"
     chmod 644 "$file.torrent"
