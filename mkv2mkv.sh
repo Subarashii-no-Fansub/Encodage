@@ -10,8 +10,7 @@ file_end="$3.mkv"
 
 #change this please :-)
 crc_calc="crc32"
-fansub_name_C="SnF"
-fansub_name_L="Subarashii no Fansub"
+fansub_name="SnF"
 
 chmod 644 "$1"
 
@@ -28,14 +27,22 @@ read -p "Numéro du son : " var_idson
 read -p "Numéro des sous-titres : " var_idss
 
 chmod 644 "$file"
-mkvmerge -o "$file_end" --default-track $var_idvid:yes --forced-track $var_idvid:no --language $var_idson:jpn --default-track $var_idson:yes --forced-track $var_idson:no --language $var_idss:fre --track-name $var_idss:"$fansub_name_L" --default-track $var_idss:yes --forced-track $var_idss:no --audio-tracks $var_idson --video-tracks $var_idvid --subtitle-tracks $var_idss  --no-track-tags --no-global-tags "$file"
+mkvmerge -o "$file_end" --default-track $var_idvid:yes --forced-track $var_idvid:no --language $var_idson:jpn --default-track $var_idson:yes --forced-track $var_idson:no --language $var_idss:fre --track-name $var_idss:"Français" --default-track $var_idss:yes --forced-track $var_idss:no --audio-tracks $var_idson --video-tracks $var_idvid --subtitle-tracks $var_idss  --no-track-tags --no-global-tags "$file"
 chmod 644 "$file_end"
 rm "$file"
 
 $crc_calc "$file_end"
 read -p "Le CRC de ce fichier est : " var_crc
 read -p "Qualité de la vidéo : " var_qual
-file="[$fansub_name_C] $3 VOSTFR [$var_qual][$var_crc].mkv"
+read -p "Traduit par $fansub_name [O/n] " -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Oo]$ ]]
+then
+    read -p "Traducteur : " var_tslt
+    fansub_name="$var_tslt-$fansub_name"
+fi
+
+file="[$fansub_name] $3 VOSTFR [$var_qual][$var_crc].mkv"
 mv "$file_end" "$file"
 
 read -p "Créer un .torrent ? [O/n] " -n 1 -r
