@@ -36,7 +36,7 @@ read -p "Le CRC de ce fichier est : " var_crc
 read -p "Qualité de la vidéo : " var_qual
 read -p "Traduit par $fansub_name [O/n] " -n 1 -r
 echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Oo]$ ]]
+if [[ ! $REPLY =~ ^[Oo]$ ]]
 then
     read -p "Traducteur : " var_tslt
     fansub_name="$var_tslt-$fansub_name"
