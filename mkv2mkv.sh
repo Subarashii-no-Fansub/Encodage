@@ -39,7 +39,7 @@ echo    # (optional) move to a new line
 if [[ ! $REPLY =~ ^[Oo]$ ]]
 then
     read -p "Traducteur : " var_tslt
-    fansub_name="$var_tslt - $fansub_name"
+    fansub_name="$var_tslt & $fansub_name"
 fi
 
 file="[$fansub_name] $3 VOSTFR [$var_qual][$var_crc].mkv"
