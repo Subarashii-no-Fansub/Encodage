@@ -49,7 +49,7 @@ read -p "Créer un .torrent ? [O/n] " -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Oo]$ ]]
 then
-    transmission-create -t http://open.nyaatorrents.info:6544/announce "$file"
+    transmission-create --tracker http://open.nyaatorrents.info:6544/announce "$file"
     chmod 644 "$file.torrent"
 fi
 
