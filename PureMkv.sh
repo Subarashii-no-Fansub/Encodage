@@ -34,12 +34,10 @@ for ((i=3 ; $nombrearg+1-$i ; i++))
 do
 	fullfilename=$(basename "${!i}")
 	attachemine=$(file --brief --mime-type "${!i}")
-	commande=$(printf "%s --attachment-name \"%s\"  --attachment-mime-type \"%s\" --add-attachment \"%s\"" "$commande" "$fullfilename" "$attachemine" "${!i}")
+	mkvpropedit "$file" --attachment-name "$fullfilename" --attachment-mime-type "$attachemine" --add-attachment "${!i}"
+
 done
 
-echo $commande
-
-mkvpropedit "$file" $($commande)
 
 $crc_calc "$file"
 read -p "Le CRC de ce fichier est : " var_crc
