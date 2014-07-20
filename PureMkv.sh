@@ -8,7 +8,7 @@ set -e
 fullfilename=$(basename "$1")
 filename=${fullfilename%.*}
 
-file="filename_first.mkv"
+file="$filename_first.mkv"
 
 #change this please :-)
 crc_calc="crc32"
@@ -37,12 +37,17 @@ do
 	commande=$(printf "%s --attachment-name \"%s\"  --attachment-mime-type \"%s\" --add-attachment \"%s\"" "$commande" "$fullfilename" "$attachemine" "${!i}")
 done
 
+echo $commande
+
 mkvpropedit "$file" $($commande)
 
 $crc_calc "$file"
 read -p "Le CRC de ce fichier est : " var_crc
 
-file_end="filename [$var_crc].mkv"
+fullfilename=$(basename "$1")
+filename=${fullfilename%.*}
+
+file_end="$filename [$var_crc].mkv"
 mv "$file" "$file_end"
 
 read -p "Créer un .torrent ? [O/n] " -n 1 -r
