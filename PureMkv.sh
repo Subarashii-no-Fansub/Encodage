@@ -8,7 +8,7 @@ set -e
 fullfilename=$(basename "$1")
 filename=${fullfilename%.*}
 
-file="$filename_first.mkv"
+file="$filename first.mkv"
 
 #change this please :-)
 crc_calc="crc32"
