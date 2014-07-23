@@ -10,7 +10,6 @@ file_end="$3.mkv"
 
 #change this please :-)
 crc_calc="crc32"
-fansub_name="SnF"
 
 chmod 644 "$1"
 
@@ -34,6 +33,7 @@ rm "$file"
 $crc_calc "$file_end"
 read -p "Le CRC de ce fichier est : " var_crc
 read -p "Qualité de la vidéo : " var_qual
+read -p "Fansub : " fansub_name
 read -p "Traduit par $fansub_name [O/n] " -n 1 -r
 echo    # (optional) move to a new line
 if [[ ! $REPLY =~ ^[Oo]$ ]]
