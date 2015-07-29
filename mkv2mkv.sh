@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # paramètre 1 : video $1
 # paramètre 2 : .ass $2
 # paramètre 3 : nom du fichier de sorti
