@@ -32,6 +32,13 @@ var_idss=$((var_idss+1))
 
 mkvpropedit "$file" --edit track:@$var_idson --set language=jpn --edit track:@$var_idss --set name="Français" --set language=fre --set flag-default=1
 
+read -p "AVez-vous un chapitrage chapter.xml [O/n] " -n 1 -r
+echo    # (optional) move to a new line
+if [[ ! $REPLY =~ ^[Oo]$ ]]
+then
+    mkvpropedit --chapters "chapter.XML" "$file"
+fi
+
 $crc_calc "$file"
 read -p "Le CRC de ce fichier est : " var_crc
 read -p "Qualité de la vidéo : " var_qual
