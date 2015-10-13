@@ -34,7 +34,7 @@ mkvpropedit "$file" --edit track:@$var_idson --set language=jpn --edit track:@$v
 
 read -p "Avez-vous un chapitrage chapter.xml [O/n] " -n 1 -r
 echo    # (optional) move to a new line
-if [[ ! $REPLY =~ ^[Oo]$ ]]
+if [[ $REPLY =~ ^[Oo]$ ]]
 then
     mkvpropedit --chapters "chapter.XML" "$file"
 fi
