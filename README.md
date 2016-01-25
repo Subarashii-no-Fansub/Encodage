@@ -1,4 +1,4 @@
 Encodage
 ========
 
-Script pour encoder des vidéos sous mkv
+Scripts pour muxer des vidéos sous mkv
