@@ -39,8 +39,6 @@ then
     mkvpropedit --chapters "chapters.xml" "$file"
 fi
 
-$crc_calc "$file"
-read -p "Le CRC de ce fichier est : " var_crc
 read -p "Qualité de la vidéo : " var_qual
 read -p "Fansub : " fansub_name
 read -p "Traduit par $fansub_name [O/n] " -n 1 -r
@@ -50,6 +48,12 @@ then
     read -p "Traducteur : " var_tslt
     fansub_name="$var_tslt & $fansub_name"
 fi
+
+var_titre="[$fansub_name] $3"
+mkvpropedit $file --edit info --set "title=$var_titre" --edit track:a1
+
+$crc_calc "$file"
+read -p "Le CRC de ce fichier est : " var_crc
 
 file_end="[$fansub_name] $3 VOSTFR [$var_qual][$var_crc].mkv"
 mv "$file" "$file_end"
