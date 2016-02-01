@@ -50,7 +50,7 @@ then
 fi
 
 var_titre="[$fansub_name] $3"
-mkvpropedit $file --edit info --set "title=$var_titre" --edit track:a1
+mkvpropedit "$file" --edit info --set "title=$var_titre" --edit track:a1
 
 $crc_calc "$file"
 read -p "Le CRC de ce fichier est : " var_crc
