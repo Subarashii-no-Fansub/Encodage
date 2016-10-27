@@ -1,61 +1,68 @@
 #!/bin/bash
-# paramètre 1 : video $1
-# paramètre 2 : .ass $2
-# paramètre 3 : nom du fichier de sorti
+# parameter 1: video $1
+# parameter 2: .ass $2
+# parameter 3: name of the output file
 
 set -e
-
-file="$3_first.mkv"
 
 #change this please :-)
 crc_calc="crc32"
 
-chmod 644 "$1"
+file="$3_first.mkv"
 
 mkvmerge -i "$1"
-read -p "Numéro de la vidéo : " var_idvid
-read -p "Numéro du son : " var_idson
-read -p "Numéro des sous-titres : " var_idss
+read -p "Video track ID: " var_vidid
+read -p "Audio track ID: " var_audioid
+#hope there's only one
+read -p "Subtitle track ID: " var_subid
 
-mkvmerge -o "$file" --default-track $var_idvid:yes --forced-track $var_idvid:no --language $var_idson:jpn --default-track $var_idson:yes --forced-track $var_idson:no --audio-tracks $var_idson --video-tracks $var_idvid --no-subtitles --no-track-tags --no-global-tags "$1" --no-video --no-audio --no-track-tags --no-global-tags --no-chapters "$2"
+#language, jpn=japanese
+read -p "Audio track language: " var_audiolanguage
+
+mkvmerge -o "$file" --default-track $var_vidid:yes --forced-track $var_vidid:no --language $var_audioid:$var_audiolanguage --default-track $var_audioid:yes --forced-track $var_audioid:no --audio-tracks $var_audioid --video-tracks $var_vidid --no-subtitles --no-track-tags --no-global-tags "$1" --no-video --no-audio --no-track-tags --no-global-tags --no-chapters "$2"
 
 mkvmerge -i "$file"
-read -p "Numéro de la vidéo : " var_idvid
-read -p "Numéro du son : " var_idson
-read -p "Numéro des sous-titres : " var_idss
+read -p "Video track ID: " var_vidid
+read -p "Audio track ID: " var_audioid
+#hope there's only one
+read -p "Subtitle track ID: " var_subid
 
-chmod 644 "$file"
+read -p "Subtitle track name: " var_subname
+#language, jpn=japanese, fre=french
+read -p "Subtitle track language: " var_sublanguage
 
-var_idvid=$((var_idvid+1))
-var_idson=$((var_idson+1))
-var_idss=$((var_idss+1))
+var_vidid=$((var_vidid+1))
+var_audioid=$((var_audioid+1))
+var_subid=$((var_subid+1))
 
-mkvpropedit "$file" --edit track:@$var_idson --set language=jpn --edit track:@$var_idss --set name="Français" --set language=fre --set flag-default=1
+mkvpropedit "$file" --edit track:@$var_audioid --set language=$var_audiolanguage --edit track:@$var_subid --set name=$var_subname --set language=$var_sublanguage --set flag-default=1
 
-read -p "Avez-vous un chapitrage chapters.xml [O/n] " -n 1 -r
+read -p "Do you have a file chapters.xml [y/N] " -n 1 -r
 echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Oo]$ ]]
+if [[ $REPLY =~ ^[Yy]$ ]]
 then
     mkvpropedit --chapters "chapters.xml" "$file"
 fi
 
-read -p "Qualité de la vidéo : " var_qual
-read -p "Fansub : " fansub_name
-read -p "Traduit par $fansub_name [O/n] " -n 1 -r
+read -p "Resolution of the vidéo: " var_videoreso
+read -p "Subtitle group: " fansub_name
+read -p "Subtitle Language: " language_name
+language_name="$language_name "
+read -p "Translated by $fansub_name [y/N] " -n 1 -r
 echo    # (optional) move to a new line
-if [[ ! $REPLY =~ ^[Oo]$ ]]
+if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
-    read -p "Traducteur : " var_tslt
+    read -p "Translated by: " var_tslt
     fansub_name="$var_tslt & $fansub_name"
 fi
 
-var_titre="[$fansub_name] $3"
-mkvpropedit "$file" --edit info --set "title=$var_titre" --edit track:a1
+var_title="[$fansub_name] $3"
+mkvpropedit "$file" --edit info --set "title=$var_title" --edit track:a1
 
 $crc_calc "$file"
-read -p "Le CRC de ce fichier est : " var_crc
+read -p "CRC is: " var_crc
 
-file_end="[$fansub_name] $3 VOSTFR [$var_qual][$var_crc].mkv"
+file_end="[$fansub_name] $3 $language_name[$var_videoreso] [$var_crc].mkv"
 mv "$file" "$file_end"
 
-echo "FINI !"
+echo "END!"
