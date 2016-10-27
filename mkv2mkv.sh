@@ -45,7 +45,10 @@ fi
 read -p "Resolution of the video: " var_videoreso
 read -p "Subtitle group: " fansub_name
 read -p "Subtitle Language: " -e -i VOSTFR language_name
-language_name="$language_name "
+if [ -n "$language_name" ]; then
+    language_name="$language_name "
+fi
+
 read -p "Translated by $fansub_name [y/N] " -n 1 -r
 echo    # (optional) move to a new line
 if [[ ! $REPLY =~ ^[Yy]$ ]]
