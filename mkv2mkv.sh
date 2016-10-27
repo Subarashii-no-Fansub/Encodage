@@ -16,8 +16,7 @@ read -p "Audio track ID: " var_audioid
 #hope there's only one
 read -p "Subtitle track ID: " var_subid
 
-#language, jpn=japanese
-read -p "Audio track language: " var_audiolanguage
+read -p "Audio track language: " -e -i jpn var_audiolanguage
 
 mkvmerge -o "$file" --default-track $var_vidid:yes --forced-track $var_vidid:no --language $var_audioid:$var_audiolanguage --default-track $var_audioid:yes --forced-track $var_audioid:no --audio-tracks $var_audioid --video-tracks $var_vidid --no-subtitles --no-track-tags --no-global-tags "$1" --no-video --no-audio --no-track-tags --no-global-tags --no-chapters "$2"
 
@@ -27,9 +26,8 @@ read -p "Audio track ID: " var_audioid
 #hope there's only one
 read -p "Subtitle track ID: " var_subid
 
-read -p "Subtitle track name: " var_subname
-#language, jpn=japanese, fre=french
-read -p "Subtitle track language: " var_sublanguage
+read -p "Subtitle track name: " -e -i Français var_subname
+read -p "Subtitle track language: " -e -i fre var_sublanguage
 
 var_vidid=$((var_vidid+1))
 var_audioid=$((var_audioid+1))
@@ -44,9 +42,9 @@ then
     mkvpropedit --chapters "chapters.xml" "$file"
 fi
 
-read -p "Resolution of the vidéo: " var_videoreso
+read -p "Resolution of the video: " var_videoreso
 read -p "Subtitle group: " fansub_name
-read -p "Subtitle Language: " language_name
+read -p "Subtitle Language: " -e -i VOSTFR language_name
 language_name="$language_name "
 read -p "Translated by $fansub_name [y/N] " -n 1 -r
 echo    # (optional) move to a new line
