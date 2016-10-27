@@ -42,7 +42,7 @@ then
     mkvpropedit --chapters "chapters.xml" "$file"
 fi
 
-read -p "Resolution of the video: " var_videoreso
+read -p "Resolution of the video: " -e -i 720p var_videoreso
 read -p "Subtitle group: " fansub_name
 read -p "Subtitle Language: " -e -i VOSTFR language_name
 if [ -n "$language_name" ]; then
