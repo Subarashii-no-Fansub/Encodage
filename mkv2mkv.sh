@@ -2,6 +2,7 @@
 # parameter 1: video $1
 # parameter 2: .ass $2
 # parameter 3: name of the output file
+# parameter 4: chapter file (optionnal)
 
 set -e
 
@@ -35,11 +36,9 @@ var_subid=$((var_subid+1))
 
 mkvpropedit "$file" --edit track:@$var_audioid --set language=$var_audiolanguage --edit track:@$var_subid --set name=$var_subname --set language=$var_sublanguage --set flag-default=1
 
-read -p "Do you have a file chapters.xml [y/N] " -n 1 -r
-echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    mkvpropedit --chapters "chapters.xml" "$file"
+#chapters file
+if [ -z "$4" ] then
+    mkvpropedit --chapters "$4" "$file"
 fi
 
 read -p "Resolution of the video: " -e -i 720p var_videoreso
