@@ -37,7 +37,7 @@ var_subid=$((var_subid+1))
 mkvpropedit "$file" --edit track:@$var_audioid --set language=$var_audiolanguage --edit track:@$var_subid --set name=$var_subname --set language=$var_sublanguage --set flag-default=1
 
 #chapters file
-if [ -n "$4" ] then
+if [ -n "$4" ]; then
     mkvpropedit --chapters "$4" "$file"
 fi
 
