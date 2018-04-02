@@ -1,4 +1,4 @@
-# Encodage
+# Encoding
 
 Scripts to mux videos in mkv
 
